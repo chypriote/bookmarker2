@@ -1,37 +1,75 @@
-<html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>Slim 3</title>
-        <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
-        <style>
-            body {
-                margin: 50px 0 0 0;
-                padding: 0;
-                width: 100%;
-                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                text-align: center;
-                color: #aaa;
-                font-size: 18px;
-            }
+<?php include('partials/head.php'); ?>
+	<body>
+		<?php include('partials/sidebar.php'); ?>
+		<section class="content">
+			<?php include('partials/header.php'); ?>
+			<div class="vue">
+				<header>
+					<h1 class="vue--category">Test</h1>
+					<h2 class="vue--tag">everything</h2>
+					<span class="vue--badge">12</span>
+				</header>
+				<ul class="vue--list">
+					<li class="list--item">
+						<div class="item--thumbnail"></div>
+						<div class="item--details">
+							<a href="#" class="title">Test</a>
+							<span class="tags">
+								<a href="#">framework</a>
+								<a href="#">css</a>
+							</span>
+							<p class="description">
+								Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+							</p>
+						</div>
+						<nav class="item--actions">
+							<button class="action like">
+								<i class="fa fa-heart"></i>
+								<span>10</span>
+							</button>
+							<button class="action share">
+								<i class="fa fa-share"></i>
+								<span>Share</span>
+							</button>
+						</nav>
+					</li>
+					<li class="list--item">
+						<div class="item--thumbnail"></div>
+						<div class="item--details">
+							<a href="#" class="title">Test</a>
+							<p class="tags">
+								<a href="#">framework</a>
+								<a href="#">css</a>
+							</p>
+							<p class="description">
+								The most renowned framework of the world.
+							</p>
+						</div>
+						<nav class="item--actions"></nav>
+					</li>
+					<li class="list--item">
+						<div class="item--thumbnail"></div>
+						<div class="item--details">
+							<a href="#" class="title">Test</a>
+							<p class="tags">
+								<a href="#">framework</a>
+								<a href="#">css</a>
+							</p>
+							<p class="description">
+								The most renowned framework of the world.
+							</p>
+						</div>
+						<nav class="item--actions"></nav>
+					</li>
+				</ul>
+			</div>
+			<h1>Slim</h1>
+			<div>a microframework for PHP</div>
 
-            h1 {
-                color: #719e40;
-                letter-spacing: -3px;
-                font-family: 'Lato', sans-serif;
-                font-size: 100px;
-                font-weight: 200;
-                margin-bottom: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Slim</h1>
-        <div>a microframework for PHP</div>
-
-        <?php if (isset($name)) : ?>
-            <h2>Hello <?= htmlspecialchars($name); ?>!</h2>
-        <?php else: ?>
-            <p>Try <a href="/SlimFramework">/SlimFramework</a>
-        <?php endif; ?>
-    </body>
-</html>
+			<?php if (isset($name)) : ?>
+				<h2>Hello <?= htmlspecialchars($name); ?>!</h2>
+			<?php else: ?>
+				<p>Try <a href="/SlimFramework">/SlimFramework</a>
+			<?php endif; ?>
+		</section>
+<?php include('partials/footer.php'); ?>

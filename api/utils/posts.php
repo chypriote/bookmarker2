@@ -1,20 +1,22 @@
 <?php
 
-	function getAllWeb() {
-		$sql = "select * FROM post WHERE category_id=2";
+namespace Web;
+
+	function getAll() {
+		$sql = "select * FROM posts";
 		try {
 			$db = getConnection();
 			$stmt = $db->prepare($sql);
 			$stmt->execute();
-			$web = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$web = $stmt->fetchAll(\PDO::FETCH_OBJ);
 			return $web;
 		} catch(PDOException $e) {
 			return null;
 		}
 	}
 
-	function getChampion($id) {
-		$sql = "select * FROM champions WHERE id=:id";
+	function getPost($id) {
+		$sql = "select * FROM posts WHERE id=:id";
 		try {
 			$db = getConnection();
 			$stmt = $db->prepare($sql);

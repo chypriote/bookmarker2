@@ -1,5 +1,7 @@
 <?php
 
+namespace Categories;
+
 	function getAll() {
 		$sql = "select * FROM categories";
 		try {
@@ -29,14 +31,17 @@
 	}
 
 	function post($category) {
-		$sql = "INSERT INTO categories (name, slug, icon, created_at, updated_at) VALUES (:name, ::creation, :creation)";
+		$sql = "INSERT INTO categories (name, slug, icon, color) VALUES (:name, :slug, :icon, :color)";
+
+		$slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($category['name'])));
+
 		try {
 			$db = getConnection();
 			$stmt = $db->prepare($sql);
 			$stmt->bindParam("name", $category['name']);
-			$stmt->bindParam("slug", $category['slug']);
+			$stmt->bindParam("slug", $slug);
 			$stmt->bindParam("icon", $category['icon']);
-			$stmt->bindParam("creation", date("Y-m-d H:i:s"));
+			$stmt->bindParam("color", $category['color']);
 			$stmt->execute();
 			$category['id'] = $db->lastInsertId();
 			$db = null;
@@ -46,18 +51,10 @@
 		}
 	}
 
-	function getPosts($id) {
-		switch ($id) {
-			case 1:
-				$table = 'posts';
-				break;
-			case 2:
-				$table = 'games';
-				break;
-		}
-
+	function getTags($id) {
 		$category = get($id);
-		$sql = "select * FROM ".$table." WHERE category_id=:id";
+
+		$sql = "select * FROM tags WHERE category_id=:id";
 		try {
 			$db = getConnection();
 			$stmt = $db->prepare($sql);

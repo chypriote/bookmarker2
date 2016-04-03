@@ -4,3 +4,5 @@
 .phpintel
 logs
 node_modules
+composer.lock
+bootstrap/config.php

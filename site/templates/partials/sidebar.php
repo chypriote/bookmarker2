@@ -24,18 +24,16 @@
 					data-category="<?= $id; ?>"
 					>
 					everything
-					<span><?= $category->count; ?></span>
 				</a>
-				<?php }
-				foreach ($tags as $id => $tag) { ?>
+			<?php } ?>
+			<?php foreach ($tags as $id => $tag) { ?>
 				<a
-					class="tag-selector <?= $tag->category->slug; ?>"
-					href="#!/<?= $tag->category->slug; ?>/<?= $tag->slug; ?>/"
+					class="tag-selector <?= $tag->category; ?>"
+					href="#!/<?= $tag->category; ?>/<?= $tag->slug; ?>/"
 					data-tag="<?php $id; ?>"
-					data-category="<?= $tag->category->id; ?>"
+					data-category="<?= $tag->category_id; ?>"
 					>
 					<?= strtolower($tag->name); ?>
-					<span><?= $tag->count; ?></span>
 				</a>
 			<?php } ?>
 		</nav>

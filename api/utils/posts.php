@@ -15,7 +15,7 @@ namespace Web;
 		}
 	}
 
-	function getPost($id) {
+	function get($id) {
 		$sql = "select * FROM posts WHERE id=:id";
 		try {
 			$db = getConnection();
@@ -29,35 +29,22 @@ namespace Web;
 		}
 	}
 
-	function addChampion($champion) {
-		$sql = "INSERT INTO champions (name, slug) VALUES (:name, :slug)";
-		try {
-			$db = getConnection();
-			$stmt = $db->prepare($sql);
-			$stmt->bindParam("name", $champion['name']);
-			$stmt->bindParam("slug", $champion['slug']);
-			$stmt->execute();
-			$champion['id'] = $db->lastInsertId();
-			$champion['games'] = 0;
-			$champion['bans'] = 0;
-			$champion['wins'] = 0;
-			$db = null;
-			return $champion;
-		} catch(PDOException $e) {
-			return null;
-		}
-	}
+	function post($post) {
+		$sql = "INSERT INTO posts (category_id, title, text, link, image) VALUES (:category_id, :title, :text, :link, :image)";
 
-	function getChampionSlim($id) {
-		$sql = "select id, name, slug FROM champions WHERE id=:id";
 		try {
 			$db = getConnection();
 			$stmt = $db->prepare($sql);
-			$stmt->bindParam("id", $id);
+			$stmt->bindParam("title", $post['title']);
+			$stmt->bindParam("category_id", $post['category_id']);
+			$stmt->bindParam("text", $post['text']);
+			$stmt->bindParam("link", $post['link']);
+			$stmt->bindParam("image", $post['image']);
 			$stmt->execute();
-			$champion = $stmt->fetchObject();
-			return $champion;
+			$post['id'] = $db->lastInsertId();
+			$db = null;
+			return $post;
 		} catch(PDOException $e) {
-			return null;
+			return $e->getMessage();
 		}
 	}

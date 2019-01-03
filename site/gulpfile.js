@@ -10,7 +10,7 @@ var browserSync = require('browser-sync'),
 
 
 gulp.task('styles', function () {
-	gulp.src(['less/main.less'])
+	return gulp.src(['less/main.less'])
 		.pipe(g.plumber({
 			errorHandler: function (error) {console.log(error.message);this.emit('end');}
 		}))
@@ -23,7 +23,7 @@ gulp.task('styles', function () {
 });
 
 gulp.task('scripts', function() {
-		gulp.src(['scripts/main.js'])
+		return gulp.src(['scripts/main.js'])
 			.pipe(g.plumber({
 				errorHandler: function (error) {console.log(error.message);this.emit('end');}
 			}))
@@ -38,17 +38,15 @@ gulp.task('copy', function () {
 	gulp.src(['fonts/*'])
 		.pipe(g.changed('../public/fonts/*'))
 		.pipe(gulp.dest('../public/fonts'));
-	gulp.src(['img/**/*'])
+	return gulp.src(['img/**/*'])
 		.pipe(gulp.dest('../public/img'))
 		.pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('clean', function () {
-	clean(['../public/**/*', '!public']);
+	return clean(['../public/**/*', '!public']);
 });
-gulp.task('build', function () {
-	run(['styles', 'scripts', 'copy']);
-});
+gulp.task('build', gulp.parallel('styles', 'scripts', 'copy'));
 
 gulp.task('reload', function () {
 	browserSync.reload();
@@ -56,7 +54,7 @@ gulp.task('reload', function () {
 
 gulp.task('serve', function () {
 	browserSync({
-		proxy: "127.0.0.1/movie-app/",
+		proxy: "127.0.0.1/",
 		online: false
 	});
 });
@@ -68,5 +66,4 @@ gulp.task('watch', function () {
 	gulp.watch(['fonts/**/*', 'img/**/*'], ['copy']);
 });
 
-gulp.task('default', ['build', 'serve', 'watch'], function () {
-});
+gulp.task('default', gulp.series('build', 'serve', 'watch'));

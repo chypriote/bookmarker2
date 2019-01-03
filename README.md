@@ -1,4 +1,4 @@
-![alt text][https://i.imgur.com/I2gGWfe.png]
+![alt text](https://i.imgur.com/I2gGWfe.png)
 
 # Slim Framework 3 Skeleton Application
 
